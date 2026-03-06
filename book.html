@@ -25,9 +25,9 @@
         input:focus, textarea:focus { outline: none; border-color: #2563eb; }
         textarea { min-height: 100px; resize: vertical; }
         .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .service-option { display: flex; align-items: center; gap: 10px; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; }
+        .service-option { display: block; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; white-space: nowrap; }
         .service-option:hover { border-color: #2563eb; background: #eff6ff; }
-        .service-option input { width: auto; margin: 0; }
+        .service-option input { margin-right: 8px; }
         .time-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .time-option { padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; text-align: center; cursor: pointer; }
         .time-option:hover { border-color: #2563eb; }
@@ -52,7 +52,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="index.html" class="back-link">← Back to providers</a>
+        <a href="/" class="back-link">← Back to home</a>
         
         <div class="step-indicator" id="steps">
             <div class="step completed">1. Select Provider</div>
@@ -106,30 +106,12 @@
                 <div class="form-group">
                     <label>What needs doing? *</label>
                     <div class="services-grid">
-                        <label class="service-option">
-                            <input type="checkbox" name="Services" value="Door Repair">
-                            Door Repair
-                        </label>
-                        <label class="service-option">
-                            <input type="checkbox" name="Services" value="TV Mounting">
-                            TV Mounting
-                        </label>
-                        <label class="service-option">
-                            <input type="checkbox" name="Services" value="Painting">
-                            Painting
-                        </label>
-                        <label class="service-option">
-                            <input type="checkbox" name="Services" value="Furniture Assembly">
-                            Furniture Assembly
-                        </label>
-                        <label class="service-option">
-                            <input type="checkbox" name="Services" value="Cleaning">
-                            Cleaning
-                        </label>
-                        <label class="service-option">
-                            <input type="checkbox" name="Services" value="Junk Removal">
-                            Junk Removal
-                        </label>
+                        <label class="service-option"><input type="checkbox" name="Services" value="Door Repair"> Door Repair</label>
+                        <label class="service-option"><input type="checkbox" name="Services" value="TV Mounting"> TV Mounting</label>
+                        <label class="service-option"><input type="checkbox" name="Services" value="Painting"> Painting</label>
+                        <label class="service-option"><input type="checkbox" name="Services" value="Furniture"> Furniture</label>
+                        <label class="service-option"><input type="checkbox" name="Services" value="Cleaning"> Cleaning</label>
+                        <label class="service-option"><input type="checkbox" name="Services" value="Junk Removal"> Junk Removal</label>
                     </div>
                 </div>
                 
