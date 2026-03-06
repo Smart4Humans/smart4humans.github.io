@@ -3,261 +3,341 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book a Service - Smart4Humans</title>
+    <title>Smart4Humans - Book a Service</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
-        .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
-        .back-link { display: inline-block; margin-bottom: 20px; color: #2563eb; text-decoration: none; }
-        h1 { font-size: 32px; margin-bottom: 10px; }
-        .step-indicator { display: flex; gap: 10px; margin-bottom: 30px; }
-        .step { flex: 1; padding: 10px; background: #e5e7eb; border-radius: 8px; text-align: center; font-size: 14px; }
-        .step.active { background: #2563eb; color: white; }
-        .step.completed { background: #22c55e; color: white; }
-        .provider-info { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 30px; }
-        .provider-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .provider-btn { background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; text-align: center; text-decoration: none; color: white; display: block; }
-        .provider-btn:hover { background: rgba(255,255,255,0.3); }
-        form { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .form-group { margin-bottom: 24px; }
-        label { display: block; font-weight: 600; margin-bottom: 8px; color: #374151; }
-        input, textarea, select { width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; color: #333; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        header { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .logo { font-size: 24px; font-weight: bold; color: #2563eb; }
+        .progress-bar { display: flex; gap: 10px; margin: 20px 0; }
+        .progress-step { flex: 1; height: 4px; background: #e5e7eb; border-radius: 2px; }
+        .progress-step.active { background: #2563eb; }
+        .progress-step.completed { background: #22c55e; }
+        .step { display: none; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .step.active { display: block; }
+        .step h2 { font-size: 24px; margin-bottom: 10px; }
+        .step p { color: #666; margin-bottom: 20px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; }
+        input[type="text"], input[type="tel"], input[type="email"], input[type="date"], textarea {
+            width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px;
+        }
         input:focus, textarea:focus { outline: none; border-color: #2563eb; }
-        textarea { min-height: 100px; resize: vertical; }
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .service-option { display: block; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; white-space: nowrap; }
-        .service-option:hover { border-color: #2563eb; background: #eff6ff; }
-        .service-option input { margin-right: 8px; }
-        .time-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .time-option { padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; text-align: center; cursor: pointer; }
-        .time-option:hover { border-color: #2563eb; }
-        .time-option.selected { background: #2563eb; color: white; border-color: #2563eb; }
-        .submit-btn { width: 100%; padding: 16px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; }
-        .submit-btn:hover { background: #1d4ed8; }
-        .note { margin-top: 20px; padding: 16px; background: #f0fdf4; border-left: 4px solid #22c55e; color: #166534; }
-        .success-message { display: none; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-        .success-message h2 { color: #22c55e; font-size: 28px; margin-bottom: 20px; }
-        .phone-preview { background: #1f2937; border-radius: 30px; padding: 20px; margin: 30px auto; max-width: 300px; }
-        .phone-screen { background: white; border-radius: 20px; min-height: 400px; padding: 15px; }
-        .sms-header { background: #f3f4f6; padding: 10px; border-radius: 10px 10px 0 0; text-align: center; font-weight: 600; margin: -15px -15px 15px -15px; }
-        .sms-bubble { background: #e5e7eb; padding: 12px; border-radius: 15px; margin-bottom: 10px; max-width: 85%; font-size: 14px; }
+        textarea { min-height: 80px; resize: vertical; }
+        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .service-btn {
+            padding: 15px; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer;
+            text-align: center; transition: all 0.2s;
+        }
+        .service-btn:hover { border-color: #2563eb; background: #eff6ff; }
+        .service-btn.selected {
+            border-color: #2563eb; background: #2563eb; color: white;
+        }
+        .time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .time-btn {
+            padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer;
+            text-align: center; transition: all 0.2s;
+        }
+        .time-btn:hover { border-color: #2563eb; }
+        .time-btn.selected { border-color: #2563eb; background: #2563eb; color: white; }
+        .provider-card {
+            border: 2px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 15px;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .provider-card:hover { border-color: #2563eb; }
+        .provider-card.selected { border-color: #2563eb; background: #eff6ff; }
+        .provider-header { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .provider-avatar {
+            width: 60px; height: 60px; border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 24px; font-weight: bold;
+        }
+        .provider-info h3 { font-size: 20px; margin-bottom: 5px; }
+        .provider-meta { color: #666; font-size: 14px; }
+        .provider-skills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+        .skill-tag {
+            background: #e0e7ff; color: #4338ca; padding: 4px 10px;
+            border-radius: 20px; font-size: 12px;
+        }
+        .provider-card.selected .skill-tag { background: #2563eb; color: white; }
+        .btn {
+            width: 100%; padding: 16px; border: none; border-radius: 8px;
+            font-size: 18px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-primary { background: #2563eb; color: white; }
+        .btn-primary:hover { background: #1d4ed8; }
+        .btn-secondary { background: #f3f4f6; color: #374151; margin-top: 10px; }
+        .btn-secondary:hover { background: #e5e7eb; }
+        .success-screen {
+            display: none; text-align: center; padding: 40px;
+            background: white; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success-screen.active { display: block; }
+        .success-icon { font-size: 64px; margin-bottom: 20px; }
+        .phone-mockup {
+            background: #1f2937; border-radius: 30px; padding: 20px;
+            max-width: 300px; margin: 30px auto;
+        }
+        .phone-screen {
+            background: white; border-radius: 20px; padding: 15px; min-height: 300px;
+        }
+        .sms-bubble {
+            background: #e5e7eb; padding: 12px; border-radius: 15px;
+            margin-bottom: 10px; max-width: 85%; font-size: 14px;
+        }
         .sms-bubble.sent { background: #2563eb; color: white; margin-left: auto; }
-        .sms-time { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 10px; }
-        .demo-link { display: inline-block; margin-top: 20px; padding: 12px 24px; background: #f59e0b; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; }
-        .what-happens-next { background: #eff6ff; padding: 20px; border-radius: 12px; margin-top: 30px; text-align: left; }
-        .what-happens-next h3 { margin-bottom: 15px; color: #1e40af; }
-        .what-happens-next ol { padding-left: 20px; }
-        .what-happens-next li { margin-bottom: 10px; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="/" class="back-link">← Back to home</a>
-        
-        <div class="step-indicator" id="steps">
-            <div class="step completed">1. Select Provider</div>
-            <div class="step active">2. Enter Details</div>
-            <div class="step">3. Confirmation</div>
+        <header>
+            <div class="logo">Smart4Humans</div>
+            <div class="progress-bar" id="progress">
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+            </div>
+        </header>
+
+        <!-- Step 1: What do you need? -->
+        <div class="step active" id="step-1">
+            <h2>What do you need?</h2>
+            <p>Select all services you need help with</p>
+            <div class="services-grid" id="services">
+                <div class="service-btn" data-service="Door Repair">🚪 Door Repair</div>
+                <div class="service-btn" data-service="TV Mounting">📺 TV Mounting</div>
+                <div class="service-btn" data-service="Painting">🎨 Painting</div>
+                <div class="service-btn" data-service="Furniture Assembly">🪑 Furniture</div>
+                <div class="service-btn" data-service="Cleaning">🧹 Cleaning</div>
+                <div class="service-btn" data-service="Junk Removal">🗑️ Junk Removal</div>
+                <div class="service-btn" data-service="Moving Help">📦 Moving Help</div>
+                <div class="service-btn" data-service="Handyman">🔧 General Repairs</div>
+            </div>
+            <button class="btn btn-primary" onclick="goToStep(2)" style="margin-top: 20px;">Continue</button>
         </div>
-        
-        <div id="provider-selection">
-            <h1>Select a Provider</h1>
-            <div class="provider-info">
-                <h2>Choose your service professional</h2>
-                <p>All providers are vetted and rated by other agents</p>
-                <div class="provider-selector">
-                    <a href="book.html?provider=mike-t" class="provider-btn">
-                        <strong>Mike T.</strong><br>
-                        <small>Handyman • $75/hr</small>
-                    </a>
-                    <a href="book.html?provider=john-d" class="provider-btn">
-                        <strong>John D.</strong><br>
-                        <small>Painter • $80/hr</small>
-                    </a>
-                    <a href="book.html?provider=sarah-l" class="provider-btn">
-                        <strong>Sarah L.</strong><br>
-                        <small>Cleaner • $70/hr</small>
-                    </a>
-                    <a href="book.html?provider=david-k" class="provider-btn">
-                        <strong>David K.</strong><br>
-                        <small>Mover • $85/hr</small>
-                    </a>
+
+        <!-- Step 2: Where? -->
+        <div class="step" id="step-2">
+            <h2>Where do you need help?</h2>
+            <p>Enter the property address</p>
+            <div class="form-group">
+                <label>Address *</label>
+                <input type="text" id="address" placeholder="123 Main St, Vancouver, BC">
+            </div>
+            <div class="form-group">
+                <label>Unit/Apt (optional)</label>
+                <input type="text" id="unit" placeholder="Apt 4B">
+            </div>
+            <div class="form-group">
+                <label>Job Details</label>
+                <textarea id="details" placeholder="Tell us more about what needs to be done..."></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="goToStep(3)">Continue</button>
+            <button class="btn btn-secondary" onclick="goToStep(1)">Back</button>
+        </div>
+
+        <!-- Step 3: When? -->
+        <div class="step" id="step-3">
+            <h2>When do you need it?</h2>
+            <p>Select a date and time</p>
+            <div class="form-group">
+                <label>Date *</label>
+                <input type="date" id="date" min="">
+            </div>
+            <div class="form-group">
+                <label>Time *</label>
+                <div class="time-grid" id="times">
+                    <div class="time-btn" data-time="9:00 AM">9:00 AM</div>
+                    <div class="time-btn" data-time="11:00 AM">11:00 AM</div>
+                    <div class="time-btn" data-time="1:00 PM">1:00 PM</div>
+                    <div class="time-btn" data-time="3:00 PM">3:00 PM</div>
+                    <div class="time-btn" data-time="5:00 PM">5:00 PM</div>
                 </div>
             </div>
+            <button class="btn btn-primary" onclick="showProviders()">See Available Humans</button>
+            <button class="btn btn-secondary" onclick="goToStep(2)">Back</button>
         </div>
-        
-        <div id="booking-form" style="display:none;">
-            <h1>Book a Service</h1>
-            
-            <div class="provider-info">
-                <h2 id="provider-name">Loading...</h2>
-                <p id="provider-details">Complete your booking details below</p>
+
+        <!-- Step 4: Choose Provider -->
+        <div class="step" id="step-4">
+            <h2>Available Humans</h2>
+            <p>Select who you want to book</p>
+            <div id="providers-list"></div>
+            <div class="form-group" style="margin-top: 20px;">
+                <label>Your Name *</label>
+                <input type="text" id="name" placeholder="Jane Smith">
             </div>
-            
-            <form id="service-form" action="https://formspree.io/f/mreyznvv" method="POST">
-                <input type="hidden" name="_subject" value="New Smart4Humans Booking!">
-                <input type="hidden" name="Provider" id="provider-input">
-                
-                <div class="form-group">
-                    <label>Property Address *</label>
-                    <input type="text" name="Address" placeholder="123 Main St, Vancouver, BC" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>What needs doing? *</label>
-                    <div class="services-grid">
-                        <label class="service-option"><input type="checkbox" name="Services" value="Door Repair"> Door Repair</label>
-                        <label class="service-option"><input type="checkbox" name="Services" value="TV Mounting"> TV Mounting</label>
-                        <label class="service-option"><input type="checkbox" name="Services" value="Painting"> Painting</label>
-                        <label class="service-option"><input type="checkbox" name="Services" value="Furniture"> Furniture</label>
-                        <label class="service-option"><input type="checkbox" name="Services" value="Cleaning"> Cleaning</label>
-                        <label class="service-option"><input type="checkbox" name="Services" value="Junk Removal"> Junk Removal</label>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Job Details</label>
-                    <textarea name="Details" placeholder="Tell us more about what needs to be done..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label>Preferred Date *</label>
-                    <input type="date" name="Date" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Preferred Time *</label>
-                    <div class="time-options">
-                        <div class="time-option" data-time="Morning (8am-12pm)">Morning<br><small>8am-12pm</small></div>
-                        <div class="time-option" data-time="Afternoon (12pm-5pm)">Afternoon<br><small>12pm-5pm</small></div>
-                        <div class="time-option" data-time="Evening (5pm-8pm)">Evening<br><small>5pm-8pm</small></div>
-                    </div>
-                    <input type="hidden" name="Time" id="time-input" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Your Name *</label>
-                    <input type="text" name="Agent Name" placeholder="Jane Smith" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Your Phone *</label>
-                    <input type="tel" name="Agent Phone" placeholder="(604) 555-1234" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Your Email</label>
-                    <input type="email" name="Agent Email" placeholder="jane@example.com">
-                </div>
-                
-                <div class="note">
-                    <strong>What happens next?</strong><br>
-                    We'll confirm with the provider and text you within 10 minutes. You'll only pay after the job is completed.
-                </div>
-                
-                <button type="submit" class="submit-btn">Submit Booking</button>
-            </form>
+            <div class="form-group">
+                <label>Your Phone *</label>
+                <input type="tel" id="phone" placeholder="(604) 555-1234">
+            </div>
+            <div class="form-group">
+                <label>Your Email</label>
+                <input type="email" id="email" placeholder="jane@example.com">
+            </div>
+            <button class="btn btn-primary" onclick="submitBooking()">Book Now</button>
+            <button class="btn btn-secondary" onclick="goToStep(3)">Back</button>
         </div>
-        
-        <div id="success-message" class="success-message">
-            <div style="font-size: 64px; margin-bottom: 20px;">✅</div>
-            <h2>Booking Received!</h2>
-            <p>We're matching you with <span id="success-provider"></span>.</p>
+
+        <!-- Success Screen -->
+        <div class="success-screen" id="success">
+            <div class="success-icon">✅</div>
+            <h2>Booking Confirmed!</h2>
+            <p>We've received your request and are matching you with a provider.</p>
             
-            <div class="phone-preview">
+            <div class="phone-mockup">
                 <div class="phone-screen">
-                    <div class="sms-header">Messages</div>
-                    <div class="sms-time">Now</div>
                     <div class="sms-bubble sent">
                         <strong>Smart4Humans:</strong><br>
-                        We've received your booking request for <span id="sms-service">services</span> at <span id="sms-address">your property</span>. Matching you with <span id="sms-provider">your provider</span> now. You'll get a confirmation text within 10 min.
+                        Your booking is confirmed! Mike T. will arrive at <span id="confirm-address"></span> on <span id="confirm-datetime"></span> for <span id="confirm-services"></span>.
                     </div>
                 </div>
             </div>
             
-            <div class="what-happens-next">
-                <h3>📱 What happens next:</h3>
-                <ol>
-                    <li><strong>Now:</strong> Provider receives notification on their phone</li>
-                    <li><strong>Within 10 min:</strong> Provider accepts/declines the job</li>
-                    <li><strong>You get SMS:</strong> "Mike T. has accepted your job for tomorrow 8am-12pm"</li>
-                    <li><strong>Day of job:</strong> Provider arrives, completes work</li>
-                    <li><strong>After completion:</strong> You pay provider directly (cash/e-transfer)</li>
-                </ol>
-            </div>
-            
-            <a href="provider.html" class="demo-link">👀 See Provider's View</a>
-            
-            <p style="margin-top: 20px;"><a href="index.html" style="color: #2563eb;">← Book another service</a></p>
+            <a href="/" class="btn btn-primary" style="display: inline-block; text-decoration: none;">Book Another Service</a>
         </div>
     </div>
-    
+
     <script>
-        const providers = {
-            'mike-t': { name: 'Mike T.', details: 'Handyman • $75/hr • ⭐ 4.9 rating' },
-            'john-d': { name: 'John D.', details: 'Painter • $80/hr • ⭐ 4.8 rating' },
-            'sarah-l': { name: 'Sarah L.', details: 'Cleaner • $70/hr • ⭐ 5.0 rating' },
-            'david-k': { name: 'David K.', details: 'Mover • $85/hr • ⭐ 4.9 rating' }
-        };
-        
-        const urlParams = new URLSearchParams(window.location.search);
-        const providerId = urlParams.get('provider');
-        
-        if (providerId && providers[providerId]) {
-            // Show booking form with selected provider
-            document.getElementById('provider-selection').style.display = 'none';
-            document.getElementById('booking-form').style.display = 'block';
-            
-            const provider = providers[providerId];
-            document.getElementById('provider-name').textContent = provider.name;
-            document.getElementById('provider-details').textContent = provider.details;
-            document.getElementById('provider-input').value = provider.name;
-            document.getElementById('success-provider').textContent = provider.name;
-            document.getElementById('sms-provider').textContent = provider.name;
-        } else {
-            // Show provider selection
-            document.getElementById('provider-selection').style.display = 'block';
-            document.getElementById('booking-form').style.display = 'none';
-            document.getElementById('steps').style.display = 'none';
-        }
-        
-        // Time selection
-        document.querySelectorAll('.time-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.time-option').forEach(o => o.classList.remove('selected'));
-                this.classList.add('selected');
-                document.getElementById('time-input').value = this.dataset.time;
-            });
-        });
-        
-        // Form submission
-        document.getElementById('service-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const form = this;
-            const formData = new FormData(form);
-            
-            // Update SMS preview
-            const services = [];
-            document.querySelectorAll('input[name="Services"]:checked').forEach(cb => {
-                services.push(cb.value);
-            });
-            document.getElementById('sms-service').textContent = services.join(', ') || 'services';
-            document.getElementById('sms-address').textContent = formData.get('Address') || 'your property';
-            
-            fetch(form.action, {method: 'POST', body: formData, headers: {'Accept': 'application/json'}})
-            .then(response => {
-                if (response.ok) {
-                    document.getElementById('booking-form').style.display = 'none';
-                    document.getElementById('steps').style.display = 'none';
-                    document.getElementById('success-message').style.display = 'block';
+        // Provider data
+        const providers = [
+            { id: 'mike', name: 'Mike T.', rate: '$75/hr', rating: '4.9', skills: ['Door Repair', 'TV Mounting', 'Furniture Assembly', 'General Repairs'], avatar: 'MT' },
+            { id: 'john', name: 'John D.', rate: '$80/hr', rating: '4.8', skills: ['Painting', 'General Repairs'], avatar: 'JD' },
+            { id: 'sarah', name: 'Sarah L.', rate: '$70/hr', rating: '5.0', skills: ['Cleaning', 'Furniture Assembly'], avatar: 'SL' },
+            { id: 'david', name: 'David K.', rate: '$85/hr', rating: '4.9', skills: ['Junk Removal', 'Moving Help', 'Furniture Assembly'], avatar: 'DK' }
+        ];
+
+        let selectedServices = [];
+        let selectedTime = '';
+        let selectedProvider = '';
+
+        // Set min date to today
+        document.getElementById('date').min = new Date().toISOString().split('T')[0];
+
+        // Service selection
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('selected');
+                const service = this.dataset.service;
+                if (this.classList.contains('selected')) {
+                    selectedServices.push(service);
                 } else {
-                    alert('Something went wrong. Please try again.');
+                    selectedServices = selectedServices.filter(s => s !== service);
                 }
             });
         });
-        
-        // Set minimum date to today
-        document.querySelector('input[name="Date"]').min = new Date().toISOString().split('T')[0];
+
+        // Time selection
+        document.querySelectorAll('.time-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedTime = this.dataset.time;
+            });
+        });
+
+        function goToStep(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step-${step}`).classList.add('active');
+            
+            // Update progress bar
+            document.querySelectorAll('.progress-step').forEach((p, i) => {
+                p.classList.remove('active', 'completed');
+                if (i < step - 1) p.classList.add('completed');
+                if (i === step - 1) p.classList.add('active');
+            });
+        }
+
+        function showProviders() {
+            const list = document.getElementById('providers-list');
+            list.innerHTML = '';
+            
+            // Filter providers who have at least one matching skill
+            const availableProviders = providers.filter(p => 
+                selectedServices.some(s => p.skills.includes(s) || p.skills.includes('General Repairs'))
+            );
+            
+            if (availableProviders.length === 0) {
+                list.innerHTML = '<p>No providers available for these services. Try selecting different services.</p>';
+                return;
+            }
+            
+            availableProviders.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'provider-card';
+                card.dataset.provider = p.id;
+                card.innerHTML = `
+                    <div class="provider-header">
+                        <div class="provider-avatar">${p.avatar}</div>
+                        <div class="provider-info">
+                            <h3>${p.name}</h3>
+                            <div class="provider-meta">${p.rate} • ⭐ ${p.rating}</div>
+                        </div>
+                    </div>
+                    <div class="provider-skills">
+                        ${p.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
+                    </div>
+                `;
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('.provider-card').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedProvider = p;
+                });
+                list.appendChild(card);
+            });
+            
+            goToStep(4);
+        }
+
+        function submitBooking() {
+            const address = document.getElementById('address').value;
+            const date = document.getElementById('date').value;
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            
+            if (!selectedProvider) {
+                alert('Please select a provider');
+                return;
+            }
+            if (!name || !phone) {
+                alert('Please enter your name and phone');
+                return;
+            }
+            
+            // Update confirmation screen
+            document.getElementById('confirm-address').textContent = address;
+            document.getElementById('confirm-datetime').textContent = `${date} at ${selectedTime}`;
+            document.getElementById('confirm-services').textContent = selectedServices.join(', ');
+            
+            // Hide all steps, show success
+            document.querySelectorAll('.step').forEach(s => s.classList.add('hidden'));
+            document.getElementById('progress').style.display = 'none';
+            document.querySelector('header h1')?.remove();
+            document.getElementById('success').classList.add('active');
+            
+            // Send to Formspree
+            const formData = new FormData();
+            formData.append('_subject', 'New Smart4Humans Booking');
+            formData.append('Services', selectedServices.join(', '));
+            formData.append('Address', address);
+            formData.append('Date', date);
+            formData.append('Time', selectedTime);
+            formData.append('Provider', selectedProvider.name);
+            formData.append('Customer Name', name);
+            formData.append('Customer Phone', phone);
+            formData.append('Customer Email', email);
+            
+            fetch('https://formspree.io/f/mreyznvv', {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+        }
     </script>
 </body>
 </html>
