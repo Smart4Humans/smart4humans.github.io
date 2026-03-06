@@ -2,381 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"
     <title>Book a Service - Smart4Humans</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-        }
-        
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #2563eb;
-            text-decoration: none;
-        }
-        
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        
-        h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-        
-        .provider-info {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-        }
-        
-        .provider-info h2 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-        
-        .provider-info p {
-            opacity: 0.9;
-        }
-        
-        form {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .form-group {
-            margin-bottom: 24px;
-        }
-        
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #374151;
-        }
-        
-        input[type="text"],
-        input[type="tel"],
-        input[type="email"],
-        input[type="date"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.2s;
-        }
-        
-        input:focus,
-        textarea:focus,
-        select:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
-        
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        .checkbox-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-        }
-        
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .checkbox-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            accent-color: #2563eb;
-        }
-        
-        .time-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-        
-        .time-option {
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .time-option:hover {
-            border-color: #2563eb;
-        }
-        
-        .time-option.selected {
-            background: #2563eb;
-            color: white;
-            border-color: #2563eb;
-        }
-        
-        .submit-btn {
-            width: 100%;
-            padding: 16px;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        
-        .submit-btn:hover {
-            background: #1d4ed8;
-        }
-        
-        .note {
-            margin-top: 20px;
-            padding: 16px;
-            background: #f0fdf4;
-            border-left: 4px solid #22c55e;
-            border-radius: 4px;
-            color: #166534;
-        }
-        
-        .success-message {
-            display: none;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        
-        .success-message h2 {
-            color: #22c55e;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-        
-        .success-message p {
-            color: #666;
-            margin-bottom: 10px;
-        }
-        
-        .success-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
+        .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #2563eb; text-decoration: none; }
+        h1 { font-size: 32px; margin-bottom: 10px; }
+        .provider-info { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 30px; }
+        form { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 24px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; color: #374151; }
+        input, textarea, select { width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px; }
+        input:focus, textarea:focus { outline: none; border-color: #2563eb; }
+        textarea { min-height: 100px; resize: vertical; }
+        .checkbox-group { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .checkbox-item { display: flex; align-items: center; gap: 8px; }
+        .time-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .time-option { padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .time-option:hover { border-color: #2563eb; }
+        .time-option.selected { background: #2563eb; color: white; border-color: #2563eb; }
+        .submit-btn { width: 100%; padding: 16px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; }
+        .submit-btn:hover { background: #1d4ed8; }
+        .note { margin-top: 20px; padding: 16px; background: #f0fdf4; border-left: 4px solid #22c55e; color: #166534; }
+        .success-message { display: none; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .success-message h2 { color: #22c55e; font-size: 28px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
     <div class="container">
         <a href="index.html" class="back-link">← Back to providers</a>
-        
         <div id="booking-form">
             <h1>Book a Service</h1>
-            
             <div class="provider-info">
                 <h2 id="provider-name">Loading...</h2>
                 <p id="provider-details">Select your service details below</p>
             </div>
-            
-            <form id="service-form">
-                <div class="form-group">
-                    <label for="address">Property Address *</label>
-                    <input type="text" id="address" name="address" placeholder="123 Main St, Vancouver, BC" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>What needs doing? *</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="service-door" name="services" value="door-repair">
-                            <label for="service-door">Door Repair</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="service-tv" name="services" value="tv-mounting">
-                            <label for="service-tv">TV Mounting</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="service-paint" name="services" value="painting">
-                            <label for="service-paint">Painting</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="service-furniture" name="services" value="furniture-assembly">
-                            <label for="service-furniture">Furniture Assembly</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="service-cleaning" name="services" value="cleaning">
-                            <label for="service-cleaning">Cleaning</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="service-junk" name="services" value="junk-removal">
-                            <label for="service-junk">Junk Removal</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="service-moving" name="services" value="moving-help">
-                            <label for="service-moving">Moving Help</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="service-other" name="services" value="other">
-                            <label for="service-other">Other</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="description">Job Details</label>
-                    <textarea id="description" name="description" placeholder="Tell us more about what needs to be done..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="date">Preferred Date *</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Preferred Time *</label>
-                    <div class="time-options">
-                        <div class="time-option" data-time="morning">Morning<br><small>8am - 12pm</small></div>
-                        <div class="time-option" data-time="afternoon">Afternoon<br><small>12pm - 5pm</small></div>
-                        <div class="time-option" data-time="evening">Evening<br><small>5pm - 8pm</small></div>
-                    </div>
-                    <input type="hidden" id="time" name="time" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="agent-name">Your Name *</label>
-                    <input type="text" id="agent-name" name="agentName" placeholder="Jane Smith" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="agent-phone">Your Phone *</label>
-                    <input type="tel" id="agent-phone" name="agentPhone" placeholder="(604) 555-1234" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="agent-email">Your Email</label>
-                    <input type="email" id="agent-email" name="agentEmail" placeholder="jane@example.com">
-                </div>
-                
-                <div class="note">
-                    <strong>What happens next?</strong><br>
-                    We'll confirm with the provider and text you within 10 minutes. You'll only pay after the job is completed.
-                </div>
-                
+            <form id="service-form" action="https://formspree.io/f/mreyznvv" method="POST">
+                <input type="hidden" name="_subject" value="New Smart4Humans Booking!">
+                <div class="form-group"><label>Property Address *</label><input type="text" name="Address" placeholder="123 Main St, Vancouver, BC" required></div>
+                <div class="form-group"><label>What needs doing? *</label><div class="checkbox-group"><div class="checkbox-item"><input type="checkbox" name="Services" value="Door Repair"> <label>Door Repair</label></div><div class="checkbox-item"><input type="checkbox" name="Services" value="TV Mounting"> <label>TV Mounting</label></div><div class="checkbox-item"><input type="checkbox" name="Services" value="Painting"> <label>Painting</label></div><div class="checkbox-item"><input type="checkbox" name="Services" value="Furniture Assembly"> <label>Furniture Assembly</label></div><div class="checkbox-item"><input type="checkbox" name="Services" value="Cleaning"> <label>Cleaning</label></div><div class="checkbox-item"><input type="checkbox" name="Services" value="Junk Removal"> <label>Junk Removal</label></div></div></div>
+                <div class="form-group"><label>Job Details</label><textarea name="Details" placeholder="Tell us more about what needs to be done..."></textarea></div>
+                <div class="form-group"><label>Preferred Date *</label><input type="date" name="Date" required></div>
+                <div class="form-group"><label>Preferred Time *</label><div class="time-options"><div class="time-option" data-time="Morning (8am-12pm)">Morning<br><small>8am-12pm</small></div><div class="time-option" data-time="Afternoon (12pm-5pm)">Afternoon<br><
+htmlsmall>12pm-5pm</small></div><div class="time-option" data-time="Evening (5pm-8pm)">Evening<br><small>5pm-8pm</small></div></div><input type="hidden" name="Time" id="time-input" required></div>
+                <div class="form-group"><label>Your Name *</label><input type="text" name="Agent Name" placeholder="Jane Smith" required></div>
+                <div class="form-group"><label>Your Phone *</label><input type="tel" name="Agent Phone" placeholder="(604) 555-1234" required></div>
+                <div class="form-group"><label>Your Email</label><input type="email" name="Agent Email" placeholder="jane@example.com"></div>
+                <input type="hidden" name="Provider" id="provider-input">
+                <div class="note"><strong>What happens next?</strong><br>We'll confirm with the provider and text you within 10 minutes.</div>
                 <button type="submit" class="submit-btn">Submit Booking</button>
             </form>
         </div>
-        
-        <div id="success-message" class="success-message">
-            <div class="success-icon">✅</div>
-            <h2>Booking Received!</h2>
-            <p>We're matching you with <span id="success-provider"></span>.</p>
-            <p>You'll get a text confirmation within 10 minutes.</p>
-            <p style="margin-top: 20px;"><a href="/" style="color: #2563eb;">← Back to all providers</a></p>
-        </div>
+        <div id="success-message" class="success-message"><div style="font-size: 64px; margin-bottom: 20px;">✅</div><h2>Booking Received!</h2><p>We're matching you with <span id="success-provider"></span>.</p><p>You'll get a text confirmation within 10 minutes.</p><p style="margin-top: 20px;"><a href="index.html" style="color: #2563eb;">← Back to all providers</a></p></div>
     </div>
-    
     <script>
-        // Provider data
-        const providers = {
-            'mike-t': { name: 'Mike T.', rate: '$75/hr', skills: ['Door Repair', 'TV Mounting', 'Furniture Assembly'] },
-            'john-d': { name: 'John D.', rate: '$80/hr', skills: ['Painting', 'Drywall', 'Carpentry'] },
-            'sarah-l': { name: 'Sarah L.', rate: '$70/hr', skills: ['Cleaning', 'Organization', 'Staging Prep'] },
-            'david-k': { name: 'David K.', rate: '$85/hr', skills: ['Junk Removal', 'Moving Help', 'Heavy Lifting'] }
-        };
-        
-        // Get provider from URL
+        const providers = {'mike-t': 'Mike T.', 'john-d': 'John D.', 'sarah-l': 'Sarah L.', 'david-k': 'David K.'};
         const urlParams = new URLSearchParams(window.location.search);
         const providerId = urlParams.get('provider');
-        const provider = providers[providerId];
-        
-        if (provider) {
-            document.getElementById('provider-name').textContent = provider.name;
-            document.getElementById('provider-details').textContent = `${provider.rate} • ${provider.skills.join(', ')}`;
-            document.getElementById('success-provider').textContent = provider.name;
-        }
-        
-        // Time selection
+        const providerName = providers[providerId] || 'Select a provider';
+        document.getElementById('provider-name').textContent = providerName;
+        document.getElementById('provider-input').value = providerName;
+        document.getElementById('success-provider').textContent = providerName;
         document.querySelectorAll('.time-option').forEach(option => {
             option.addEventListener('click', function() {
                 document.querySelectorAll('.time-option').forEach(o => o.classList.remove('selected'));
                 this.classList.add('selected');
-                document.getElementById('time').value = this.dataset.time;
+                document.getElementById('time-input').value = this.dataset.time;
             });
         });
-        
-        // Form submission
         document.getElementById('service-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Collect form data
-            const formData = new FormData(this);
-            const services = [];
-            document.querySelectorAll('input[name="services"]:checked').forEach(cb => {
-                services.push(cb.value);
+            const form = this;
+            fetch(form.action, {method: 'POST', body: new FormData(form), headers: {'Accept': 'application/json'}})
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('booking-form').style.display = 'none';
+                    document.getElementById('success-message').style.display = 'block';
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
             });
-            
-            const booking = {
-                provider: providerId,
-                providerName: provider?.name,
-                address: formData.get('address'),
-                services: services,
-                description: formData.get('description'),
-                date: formData.get('date'),
-                time: formData.get('time'),
-                agentName: formData.get('agentName'),
-                agentPhone: formData.get('agentPhone'),
-                agentEmail: formData.get('agentEmail'),
-                timestamp: new Date().toISOString()
-            };
-            
-            // Store in localStorage (for demo)
-            const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-            bookings.push(booking);
-            localStorage.setItem('bookings', JSON.stringify(bookings));
-            
-            // In real version, this would send to your backend/Twilio
-            console.log('Booking submitted:', booking);
-            
-            // Show success
-            document.getElementById('booking-form').style.display = 'none';
-            document.getElementById('success-message').style.display = 'block';
-            
-            // TODO: Send SMS to you with booking details
-            // This requires a backend to call Twilio API securely
         });
-        
-        // Set minimum date to today
         document.getElementById('date').min = new Date().toISOString().split('T')[0];
     </script>
 </body>
 </html>
+
