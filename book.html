@@ -3,184 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Provider Dashboard - Smart4Humans</title>
+    <title>Book a Service - Smart4Humans</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8f9fa; color: #333; }
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        header { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 15px; }
-        .avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; font-weight: bold; }
-        .header-info h1 { font-size: 24px; margin-bottom: 5px; }
-        .header-info p { color: #666; }
-        .status-badge { background: #dcfce7; color: #166534; padding: 6px 12px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-left: auto; }
-        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
-        .stat-card { background: white; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .stat-number { font-size: 32px; font-weight: bold; color: #2563eb; }
-        .stat-label { color: #666; font-size: 14px; margin-top: 5px; }
-        .section { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .section h2 { font-size: 20px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        .badge { background: #ef4444; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
-        .job-card { border: 2px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 15px; transition: all 0.2s; }
-        .job-card:hover { border-color: #2563eb; }
-        .job-card.new { border-color: #22c55e; background: #f0fdf4; }
-        .job-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; }
-        .job-title { font-size: 18px; font-weight: 600; }
-        .job-time { color: #666; font-size: 14px; }
-        .job-details { display: grid; gap: 10px; margin-bottom: 15px; }
-        .detail-row { display: flex; gap: 10px; }
-        .detail-label { color: #666; min-width: 100px; }
-        .detail-value { font-weight: 500; }
-        .job-actions { display: flex; gap: 10px; }
-        .btn { padding: 12px 24px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; font-size: 16px; }
-        .btn-primary { background: #2563eb; color: white; }
-        .btn-primary:hover { background: #1d4ed8; }
-        .btn-secondary { background: #f3f4f6; color: #374151; }
-        .btn-secondary:hover { background: #e5e7eb; }
-        .sms-preview { background: #1f2937; color: white; padding: 20px; border-radius: 12px; margin-top: 20px; }
-        .sms-preview h3 { font-size: 16px; margin-bottom: 15px; color: #9ca3af; }
-        .sms-bubble { background: #374151; padding: 15px; border-radius: 12px; margin-bottom: 10px; max-width: 80%; }
-        .sms-bubble.sent { margin-left: auto; background: #2563eb; }
-        .sms-time { font-size: 12px; color: #9ca3af; margin-top: 5px; }
-        .demo-banner { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 15px; text-align: center; border-radius: 8px; margin-bottom: 20px; }
-        .demo-banner h3 { margin-bottom: 5px; }
-        .nav { display: flex; gap: 10px; margin-bottom: 20px; }
-        .nav a { color: #2563eb; text-decoration: none; padding: 10px 15px; border-radius: 8px; }
-        .nav a:hover { background: #eff6ff; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; background: #f8f9fa; }
+        .container { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #2563eb; text-decoration: none; }
+        h1 { font-size: 32px; margin-bottom: 10px; }
+        .step-indicator { display: flex; gap: 10px; margin-bottom: 30px; }
+        .step { flex: 1; padding: 10px; background: #e5e7eb; border-radius: 8px; text-align: center; font-size: 14px; }
+        .step.active { background: #2563eb; color: white; }
+        .step.completed { background: #22c55e; color: white; }
+        .provider-info { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 30px; }
+        form { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 24px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; color: #374151; }
+        input, textarea, select { width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px; }
+        input:focus, textarea:focus { outline: none; border-color: #2563eb; }
+        textarea { min-height: 100px; resize: vertical; }
+        .checkbox-group { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .checkbox-item { display: flex; align-items: center; gap: 8px; }
+        .time-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .time-option { padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .time-option:hover { border-color: #2563eb; }
+        .time-option.selected { background: #2563eb; color: white; border-color: #2563eb; }
+        .submit-btn { width: 100%; padding: 16px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; }
+        .submit-btn:hover { background: #1d4ed8; }
+        .note { margin-top: 20px; padding: 16px; background: #f0fdf4; border-left: 4px solid #22c55e; color: #166534; }
+        .success-message { display: none; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .success-message h2 { color: #22c55e; font-size: 28px; margin-bottom: 20px; }
+        .phone-preview { background: #1f2937; border-radius: 30px; padding: 20px; margin: 30px auto; max-width: 300px; }
+        .phone-screen { background: white; border-radius: 20px; min-height: 400px; padding: 15px; }
+        .sms-header { background: #f3f4f6; padding: 10px; border-radius: 10px 10px 0 0; text-align: center; font-weight: 600; margin: -15px -15px 15px -15px; }
+        .sms-bubble { background: #e5e7eb; padding: 12px; border-radius: 15px; margin-bottom: 10px; max-width: 85%; font-size: 14px; }
+        .sms-bubble.sent { background: #2563eb; color: white; margin-left: auto; }
+        .sms-time { font-size: 11px; color: #9ca3af; text-align: center; margin-top: 10px; }
+        .demo-link { display: inline-block; margin-top: 20px; padding: 12px 24px; background: #f59e0b; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; }
+        .what-happens-next { background: #eff6ff; padding: 20px; border-radius: 12px; margin-top: 30px; text-align: left; }
+        .what-happens-next h3 { margin-bottom: 15px; color: #1e40af; }
+        .what-happens-next ol { padding-left: 20px; }
+        .what-happens-next li { margin-bottom: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="demo-banner">
-            <h3>👋 PROVIDER DEMO</h3>
-            <p>This is what Mike (the handyman) would see on his phone when a new job comes in</p>
+        <a href="index.html" class="back-link">← Back to providers</a>
+        
+        <div class="step-indicator">
+            <div class="step completed">1. Select Provider</div>
+            <div class="step active">2. Enter Details</div>
+            <div class="step">3. Confirmation</div>
         </div>
         
-        <div class="nav">
-            <a href="index.html">← Back to Customer View</a>
-            <a href="book.html">Booking Form</a>
-        </div>
-        
-        <header>
-            <div class="avatar">MT</div>
-            <div class="header-info">
-                <h1>Mike T.</h1>
-                <p>Handyman • $75/hr • ⭐ 100% reliability</p>
-            </div>
-            <div class="status-badge">🟢 Available</div>
-        </header>
-        
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number">12</div>
-                <div class="stat-label">Jobs This Month</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">$2,400</div>
-                <div class="stat-label">Earnings</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">4.9★</div>
-                <div class="stat-label">Rating</div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>New Job Requests <span class="badge">1 NEW</span></h2>
+        <div id="booking-form">
+            <h1>Book a Service</h1>
             
-            <div class="job-card new" id="new-job">
-                <div class="job-header">
-                    <div>
-                        <div class="job-title">🔔 New Job Available!</div>
-                        <div class="job-time">Just now • Reply in 10 min to accept</div>
-                    </div>
-                </div>
-                <div class="job-details">
-                    <div class="detail-row">
-                        <span class="detail-label">📍 Address:</span>
-                        <span class="detail-value" id="job-address">123 Main St, Vancouver, BC</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">🔧 Service:</span>
-                        <span class="detail-value" id="job-service">Door Repair, TV Mounting</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">📅 Date:</span>
-                        <span class="detail-value" id="job-date">Tomorrow, Mar 6</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">⏰ Time:</span>
-                        <span class="detail-value" id="job-time">Morning (8am-12pm)</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">📝 Details:</span>
-                        <span class="detail-value" id="job-details">Front door handle is loose and needs tightening. Also need 55" TV mounted in living room.</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">👤 Agent:</span>
-                        <span class="detail-value" id="job-agent">Sarah Johnson • (604) 555-0123</span>
-                    </div>
-                </div>
-                <div class="job-actions">
-                    <button class="btn btn-primary" onclick="acceptJob()">✅ Accept Job</button>
-                    <button class="btn btn-secondary" onclick="declineJob()">❌ Decline</button>
-                </div>
+            <div class="provider-info">
+                <h2 id="provider-name">Loading...</h2>
+                <p id="provider-details">Select your service details below</p>
             </div>
             
-            <div class="sms-preview">
-                <h3>📱 SMS Preview (What the agent receives)</h3>
-                <div class="sms-bubble">
-                    <strong>Smart4Humans:</strong> Good news! Mike T. has accepted your job for tomorrow 8am-12pm. He'll arrive at 123 Main St, Vancouver. You'll pay $75/hr after completion. Questions? Reply to this text.
+            <form id="service-form" action="https://formspree.io/f/mreyznvv" method="POST">
+                <input type="hidden" name="_subject" value="New Smart4Humans Booking!">
+                <input type="hidden" name="Provider" id="provider-input">
+                
+                <div class="form-group">
+                    <label>Property Address *</label>
+                    <input type="text" name="Address" placeholder="123 Main St, Vancouver, BC" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>What needs doing? *</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item"><input type="checkbox" name="Services" value="Door Repair"> <label>Door Repair</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="Services" value="TV Mounting"> <label>TV Mounting</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="Services" value="Painting"> <label>Painting</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="Services" value="Furniture Assembly"> <label>Furniture Assembly</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="Services" value="Cleaning"> <label>Cleaning</label></div>
+                        <div class="checkbox-item"><input type="checkbox" name="Services" value="Junk Removal"> <label>Junk Removal</label></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Job Details</label>
+                    <textarea name="Details" placeholder="Tell us more about what needs to be done..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Preferred Date *</label>
+                    <input type="date" name="Date" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Preferred Time *</label>
+                    <div class="time-options">
+                        <div class="time-option" data-time="Morning (8am-12pm)">Morning<br><small>8am-12pm</small></div>
+                        <div class="time-option" data-time="Afternoon (12pm-5pm)">Afternoon<br><small>12pm-5pm</small></div>
+                        <div class="time-option" data-time="Evening (5pm-8pm)">Evening<br><small>5pm-8pm</small></div>
+                    </div>
+                    <input type="hidden" name="Time" id="time-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Your Name *</label>
+                    <input type="text" name="Agent Name" placeholder="Jane Smith" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Your Phone *</label>
+                    <input type="tel" name="Agent Phone" placeholder="(604) 555-1234" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Your Email</label>
+                    <input type="email" name="Agent Email" placeholder="jane@example.com">
+                </div>
+                
+                <div class="note">
+                    <strong>What happens next?</strong><br>
+                    We'll confirm with the provider and text you within 10 minutes. You'll only pay after the job is completed.
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Booking</button>
+            </form>
+        </div>
+        
+        <div id="success-message" class="success-message">
+            <div style="font-size: 64px; margin-bottom: 20px;">✅</div>
+            <h2>Booking Received!</h2>
+            <p>We're matching you with <span id="success-provider"></span>.</p>
+            
+            <div class="phone-preview">
+                <div class="phone-screen">
+                    <div class="sms-header">Messages</div>
                     <div class="sms-time">Now</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>Upcoming Jobs</h2>
-            <div class="job-card">
-                <div class="job-header">
-                    <div class="job-title">Furniture Assembly</div>
-                    <div class="job-time">Mar 8 • Afternoon</div>
-                </div>
-                <div class="job-details">
-                    <div class="detail-row">
-                        <span class="detail-label">📍 Address:</span>
-                        <span class="detail-value">456 Oak Ave, Vancouver</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="detail-label">👤 Agent:</span>
-                        <span class="detail-value">David Chen</span>
+                    <div class="sms-bubble sent">
+                        <strong>Smart4Humans:</strong><br>
+                        We've received your booking request for <span id="sms-service">door repair</span> at <span id="sms-address">123 Main St</span>. Matching you with <span id="sms-provider">Mike T.</span> now. You'll get a confirmation text within 10 min.
                     </div>
                 </div>
-                <div class="job-actions">
-                    <button class="btn btn-secondary">View Details</button>
-                </div>
             </div>
+            
+            <div class="what-happens-next">
+                <h3>📱 What happens next:</h3>
+                <ol>
+                    <li><strong>Now:</strong> Provider receives notification on their phone</li>
+                    <li><strong>Within 10 min:</strong> Provider accepts/declines the job</li>
+                    <li><strong>You get SMS:</strong> "Mike T. has accepted your job for tomorrow 8am-12pm"</li>
+                    <li><strong>Day of job:</strong> Provider arrives, completes work</li>
+                    <li><strong>After completion:</strong> You pay provider directly (cash/e-transfer)</li>
+                </ol>
+            </div>
+            
+            <a href="provider.html?demo=true" class="demo-link">👀 See Provider's View</a>
+            
+            <p style="margin-top: 20px;"><a href="index.html" style="color: #2563eb;">← Book another service</a></p>
         </div>
     </div>
     
     <script>
-        // Load job data from URL params (simulated)
+        const providers = {'mike-t': 'Mike T.', 'john-d': 'John D.', 'sarah-l': 'Sarah L.', 'david-k': 'David K.'};
         const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('demo') === 'true') {
-            document.getElementById('job-address').textContent = urlParams.get('address') || '123 Main St, Vancouver, BC';
-            document.getElementById('job-service').textContent = urlParams.get('services') || 'Door Repair, TV Mounting';
-            document.getElementById('job-date').textContent = urlParams.get('date') || 'Tomorrow, Mar 6';
-            document.getElementById('job-time').textContent = urlParams.get('time') || 'Morning (8am-12pm)';
-            document.getElementById('job-details').textContent = urlParams.get('details') || 'Front door handle is loose...';
-            document.getElementById('job-agent').textContent = urlParams.get('agent') || 'Sarah Johnson • (604) 555-0123';
-        }
+        const providerId = urlParams.get('provider');
+        const providerName = providers[providerId] || 'Select a provider';
         
-        function acceptJob() {
-            alert('✅ Job accepted!\n\nIn the real app, this would:\n1. Notify the agent via SMS\n2. Add to your calendar\n3. Send you the job details via WhatsApp');
-            document.getElementById('new-job').style.borderColor = '#2563eb';
-        }
+        document.getElementById('provider-name').textContent = providerName;
+        document.getElementById('provider-input').value = providerName;
+        document.getElementById('success-provider').textContent = providerName;
+        document.getElementById('sms-provider').textContent = providerName;
         
-        function declineJob() {
-            alert('❌ Job declined.\n\nThe agent will be notified to select another provider.');
-            document.getElementById('new-job').style.display = 'none';
-        }
+        // Time selection
+        document.querySelectorAll('.time-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.time-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                document.getElementById('time-input').value = this.dataset.time;
+            });
+        });
+        
+        // Form submission
+        document.getElementById('service-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = this;
+            const formData = new FormData(form);
+            
+            // Update SMS preview with actual data
+            const services = [];
+            document.querySelectorAll('input[name="Services"]:checked').forEach(cb => {
+                services.push(cb.value);
+            });
+            document.getElementById('sms-service').textContent = services.join(', ') || 'services';
+            document.getElementById('sms-address').textContent = formData.get('Address') || 'your property';
+            
+            fetch(form.action, {method: 'POST', body: formData, headers: {'Accept': 'application/json'}})
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('booking-form').style.display = 'none';
+                    document.querySelector('.step-indicator').style.display = 'none';
+                    document.getElementById('success-message').style.display = 'block';
+                } else {
+                    alert('Something went wrong. Please try again.');
+                }
+            });
+        });
+        
+        // Set minimum date to today
+        document.querySelector('input[name="Date"]').min = new Date().toISOString().split('T')[0];
     </script>
 </body>
 </html>
-
