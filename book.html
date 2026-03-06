@@ -15,16 +15,21 @@
         .step.active { background: #2563eb; color: white; }
         .step.completed { background: #22c55e; color: white; }
         .provider-info { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 30px; }
+        .provider-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .provider-btn { background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; text-align: center; text-decoration: none; color: white; display: block; }
+        .provider-btn:hover { background: rgba(255,255,255,0.3); }
         form { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .form-group { margin-bottom: 24px; }
         label { display: block; font-weight: 600; margin-bottom: 8px; color: #374151; }
         input, textarea, select { width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px; }
         input:focus, textarea:focus { outline: none; border-color: #2563eb; }
         textarea { min-height: 100px; resize: vertical; }
-        .checkbox-group { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .checkbox-item { display: flex; align-items: center; gap: 8px; }
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .service-option { display: flex; align-items: center; gap: 10px; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; }
+        .service-option:hover { border-color: #2563eb; background: #eff6ff; }
+        .service-option input { width: auto; margin: 0; }
         .time-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .time-option { padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .time-option { padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; text-align: center; cursor: pointer; }
         .time-option:hover { border-color: #2563eb; }
         .time-option.selected { background: #2563eb; color: white; border-color: #2563eb; }
         .submit-btn { width: 100%; padding: 16px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; }
@@ -49,18 +54,44 @@
     <div class="container">
         <a href="index.html" class="back-link">← Back to providers</a>
         
-        <div class="step-indicator">
+        <div class="step-indicator" id="steps">
             <div class="step completed">1. Select Provider</div>
             <div class="step active">2. Enter Details</div>
             <div class="step">3. Confirmation</div>
         </div>
         
-        <div id="booking-form">
+        <div id="provider-selection">
+            <h1>Select a Provider</h1>
+            <div class="provider-info">
+                <h2>Choose your service professional</h2>
+                <p>All providers are vetted and rated by other agents</p>
+                <div class="provider-selector">
+                    <a href="book.html?provider=mike-t" class="provider-btn">
+                        <strong>Mike T.</strong><br>
+                        <small>Handyman • $75/hr</small>
+                    </a>
+                    <a href="book.html?provider=john-d" class="provider-btn">
+                        <strong>John D.</strong><br>
+                        <small>Painter • $80/hr</small>
+                    </a>
+                    <a href="book.html?provider=sarah-l" class="provider-btn">
+                        <strong>Sarah L.</strong><br>
+                        <small>Cleaner • $70/hr</small>
+                    </a>
+                    <a href="book.html?provider=david-k" class="provider-btn">
+                        <strong>David K.</strong><br>
+                        <small>Mover • $85/hr</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="booking-form" style="display:none;">
             <h1>Book a Service</h1>
             
             <div class="provider-info">
                 <h2 id="provider-name">Loading...</h2>
-                <p id="provider-details">Select your service details below</p>
+                <p id="provider-details">Complete your booking details below</p>
             </div>
             
             <form id="service-form" action="https://formspree.io/f/mreyznvv" method="POST">
@@ -74,13 +105,31 @@
                 
                 <div class="form-group">
                     <label>What needs doing? *</label>
-                    <div class="checkbox-group">
-                        <label class="checkbox-item"><input type="checkbox" name="Services" value="Door Repair"> Door Repair</label>
-                        <div class="checkbox-item"><input type="checkbox" name="Services" value="TV Mounting"> <label>TV Mounting</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="Services" value="Painting"> <label>Painting</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="Services" value="Furniture Assembly"> <label>Furniture Assembly</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="Services" value="Cleaning"> <label>Cleaning</label></div>
-                        <div class="checkbox-item"><input type="checkbox" name="Services" value="Junk Removal"> <label>Junk Removal</label></div>
+                    <div class="services-grid">
+                        <label class="service-option">
+                            <input type="checkbox" name="Services" value="Door Repair">
+                            Door Repair
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="Services" value="TV Mounting">
+                            TV Mounting
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="Services" value="Painting">
+                            Painting
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="Services" value="Furniture Assembly">
+                            Furniture Assembly
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="Services" value="Cleaning">
+                            Cleaning
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="Services" value="Junk Removal">
+                            Junk Removal
+                        </label>
                     </div>
                 </div>
                 
@@ -139,7 +188,7 @@
                     <div class="sms-time">Now</div>
                     <div class="sms-bubble sent">
                         <strong>Smart4Humans:</strong><br>
-                        We've received your booking request for <span id="sms-service">door repair</span> at <span id="sms-address">123 Main St</span>. Matching you with <span id="sms-provider">Mike T.</span> now. You'll get a confirmation text within 10 min.
+                        We've received your booking request for <span id="sms-service">services</span> at <span id="sms-address">your property</span>. Matching you with <span id="sms-provider">your provider</span> now. You'll get a confirmation text within 10 min.
                     </div>
                 </div>
             </div>
@@ -155,22 +204,40 @@
                 </ol>
             </div>
             
-            <a href="provider.html?demo=true" class="demo-link">👀 See Provider's View</a>
+            <a href="provider.html" class="demo-link">👀 See Provider's View</a>
             
             <p style="margin-top: 20px;"><a href="index.html" style="color: #2563eb;">← Book another service</a></p>
         </div>
     </div>
     
     <script>
-        const providers = {'mike-t': 'Mike T.', 'john-d': 'John D.', 'sarah-l': 'Sarah L.', 'david-k': 'David K.'};
+        const providers = {
+            'mike-t': { name: 'Mike T.', details: 'Handyman • $75/hr • ⭐ 4.9 rating' },
+            'john-d': { name: 'John D.', details: 'Painter • $80/hr • ⭐ 4.8 rating' },
+            'sarah-l': { name: 'Sarah L.', details: 'Cleaner • $70/hr • ⭐ 5.0 rating' },
+            'david-k': { name: 'David K.', details: 'Mover • $85/hr • ⭐ 4.9 rating' }
+        };
+        
         const urlParams = new URLSearchParams(window.location.search);
         const providerId = urlParams.get('provider');
-        const providerName = providers[providerId] || 'Select a provider';
         
-        document.getElementById('provider-name').textContent = providerName;
-        document.getElementById('provider-input').value = providerName;
-        document.getElementById('success-provider').textContent = providerName;
-        document.getElementById('sms-provider').textContent = providerName;
+        if (providerId && providers[providerId]) {
+            // Show booking form with selected provider
+            document.getElementById('provider-selection').style.display = 'none';
+            document.getElementById('booking-form').style.display = 'block';
+            
+            const provider = providers[providerId];
+            document.getElementById('provider-name').textContent = provider.name;
+            document.getElementById('provider-details').textContent = provider.details;
+            document.getElementById('provider-input').value = provider.name;
+            document.getElementById('success-provider').textContent = provider.name;
+            document.getElementById('sms-provider').textContent = provider.name;
+        } else {
+            // Show provider selection
+            document.getElementById('provider-selection').style.display = 'block';
+            document.getElementById('booking-form').style.display = 'none';
+            document.getElementById('steps').style.display = 'none';
+        }
         
         // Time selection
         document.querySelectorAll('.time-option').forEach(option => {
@@ -187,7 +254,7 @@
             const form = this;
             const formData = new FormData(form);
             
-            // Update SMS preview with actual data
+            // Update SMS preview
             const services = [];
             document.querySelectorAll('input[name="Services"]:checked').forEach(cb => {
                 services.push(cb.value);
@@ -199,7 +266,7 @@
             .then(response => {
                 if (response.ok) {
                     document.getElementById('booking-form').style.display = 'none';
-                    document.querySelector('.step-indicator').style.display = 'none';
+                    document.getElementById('steps').style.display = 'none';
                     document.getElementById('success-message').style.display = 'block';
                 } else {
                     alert('Something went wrong. Please try again.');
