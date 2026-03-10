@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Painting — Task Leaders</title>
+  <title>Category — TaskLeaders</title>
   <style>
     :root {
       --cyan: #00d4ff;
@@ -13,6 +13,7 @@
       --bronze: #CD7F32;
       --dark: #0a0a1a;
       --card: rgba(255,255,255,0.05);
+      --whatsapp: #25D366;
     }
     * { box-sizing: border-box; }
     body {
@@ -47,24 +48,32 @@
       margin-left: 12px;
     }
     main {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 24px;
     }
+    .sort-section {
+      margin-bottom: 8px;
+    }
+    .sort-label {
+      font-size: 12px;
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
     .filters {
       display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 8px;
+      margin-bottom: 12px;
       flex-wrap: wrap;
     }
     .filter-btn {
-      padding: 10px 18px;
-      border-radius: 24px;
+      padding: 8px 16px;
+      border-radius: 20px;
       border: 1px solid rgba(255,255,255,0.2);
       background: rgba(255,255,255,0.05);
       color: #fff;
       cursor: pointer;
-      font-size: 13px;
+      font-size: 12px;
       transition: all 0.2s;
     }
     .filter-btn:hover, .filter-btn.active {
@@ -72,220 +81,356 @@
       color: #000;
       border-color: var(--cyan);
     }
+    .ranking-hint {
+      font-size: 12px;
+      opacity: 0.5;
+      margin-bottom: 16px;
+    }
+    .badge-legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 11px;
+      opacity: 0.5;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+    }
+    .badge-legend span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
     .leaderboard-header {
       display: grid;
-      grid-template-columns: 50px 1fr 80px 90px 70px 60px 100px;
-      gap: 12px;
-      padding: 12px 16px;
-      font-size: 11px;
-      opacity: 0.6;
+      grid-template-columns: 36px minmax(140px, 1fr) 70px 70px 70px 44px 80px;
+      gap: 8px;
+      padding: 10px 12px;
+      font-size: 10px;
+      opacity: 0.5;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
     .tasker {
       display: grid;
-      grid-template-columns: 50px 1fr 80px 90px 70px 60px 100px;
-      gap: 12px;
+      grid-template-columns: 36px minmax(140px, 1fr) 70px 70px 70px 44px 80px;
+      gap: 8px;
       align-items: center;
-      padding: 16px;
+      padding: 12px;
       background: var(--card);
-      border-radius: 12px;
+      border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.08);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       transition: all 0.2s;
       cursor: pointer;
     }
     .tasker:hover {
       border-color: var(--cyan);
-      transform: translateX(4px);
+      transform: translateX(3px);
     }
     .rank {
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 800;
       text-align: center;
     }
-    .rank.gold { color: var(--gold); text-shadow: 0 0 10px rgba(255,215,0,0.4); }
+    .rank.gold { color: var(--gold); text-shadow: 0 0 8px rgba(255,215,0,0.3); }
     .rank.silver { color: var(--silver); }
     .rank.bronze { color: var(--bronze); }
-    .tasker-info { display: flex; flex-direction: column; gap: 4px; }
-    .tasker-name { font-size: 15px; font-weight: 600; }
-    .tasker-meta { font-size: 12px; opacity: 0.6; }
-    .rate { font-size: 15px; font-weight: 700; color: #4ade80; }
-    .response { font-size: 15px; font-weight: 700; color: var(--cyan); }
-    .rating { font-size: 14px; }
-    .stars { color: var(--gold); }
-    .status {
+    .tasker-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .tasker-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tasker-area { font-size: 11px; opacity: 0.5; }
+    .metric {
+      font-size: 13px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+    .metric.response { color: var(--cyan); }
+    .metric.reliability { color: #4ade80; }
+    .metric.price { color: #fbbf24; }
+    .badges {
+      display: flex;
+      gap: 4px;
+      justify-content: flex-end;
+    }
+    .badge-icon {
+      width: 20px;
+      height: 20px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 12px;
-    }
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-    .status-dot.online { background: #4ade80; box-shadow: 0 0 6px #4ade80; }
-    .status-dot.busy { background: #fbbf24; }
-    .badges { display: flex; gap: 6px; flex-wrap: wrap; }
-    .badge {
-      font-size: 10px;
-      padding: 4px 8px;
-      border-radius: 12px;
-      font-weight: 600;
-    }
-    .badge.speed { background: rgba(0,212,255,0.2); color: var(--cyan); }
-    .badge.pro { background: rgba(168,85,247,0.2); color: #a855f7; }
-    .badge.cheap { background: rgba(74,222,128,0.2); color: #4ade80; }
-    .badge.new { background: rgba(251,191,36,0.2); color: #fbbf24; }
-    .pagination {
-      display: flex;
       justify-content: center;
-      gap: 8px;
-      margin-top: 30px;
+      font-size: 12px;
+      cursor: help;
+      position: relative;
     }
-    .page-btn {
-      padding: 10px 16px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.2);
-      background: rgba(255,255,255,0.05);
+    .badge-icon:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.9);
       color: #fff;
-      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      white-space: nowrap;
+      z-index: 10;
+      margin-bottom: 4px;
     }
-    .page-btn.active {
-      background: var(--cyan);
-      color: #000;
-      border-color: var(--cyan);
+    .whatsapp-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--whatsapp);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      text-decoration: none;
+      transition: transform 0.15s;
+    }
+    .whatsapp-btn:hover {
+      transform: scale(1.05);
+    }
+    .top-3-section {
+      margin-bottom: 24px;
+    }
+    .top-3-header {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      opacity: 0.8;
+    }
+    .leaderboard-section {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .leaderboard-section-header {
+      font-size: 12px;
+      opacity: 0.5;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     @media (max-width: 768px) {
-      .leaderboard-header, .tasker {
-        grid-template-columns: 40px 1fr 70px 60px;
+      main { padding: 16px; }
+      .leaderboard-header {
+        grid-template-columns: 32px 1fr 60px 44px;
+        gap: 6px;
       }
-      .tasker-meta, .badges { display: none; }
+      .leaderboard-header > div:nth-child(4),
+      .leaderboard-header > div:nth-child(5),
+      .leaderboard-header > div:nth-child(6) {
+        display: none;
+      }
+      .tasker {
+        grid-template-columns: 32px 1fr 60px 44px;
+        gap: 6px;
+        padding: 10px;
+      }
+      .tasker > .metric:nth-child(4),
+      .tasker > .metric:nth-child(5),
+      .tasker > .badges:nth-child(6) {
+        display: none;
+      }
+      .badge-legend {
+        gap: 10px;
+        font-size: 10px;
+      }
+    }
+    @media (max-width: 480px) {
+      .category-title { font-size: 18px; }
+      .tasker-count { display: block; margin-left: 0; margin-top: 4px; }
+      .filters { gap: 6px; }
+      .filter-btn { padding: 6px 12px; font-size: 11px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <a href="homepage.html" class="logo">← Task Leaders</a>
+    <a href="homepage.html" class="logo">← TaskLeaders</a>
     <div>
-      <span class="category-title">🎨 Painting</span>
-      <span class="tasker-count">1,247 Taskers</span>
+      <span class="category-title">🔧 Handyman</span>
+      <span class="tasker-count">2,847 TaskLeaders</span>
     </div>
     <div></div>
   </header>
 
   <main>
-    <div class="filters">
-      <button class="filter-btn active">🏆 Overall Rank</button>
-      <button class="filter-btn">🟢 Online Now</button>
-      <button class="filter-btn">⚡ Fastest Response</button>
-      <button class="filter-btn">⭐ Top Rated</button>
-      <button class="filter-btn">💰 Best Price</button>
-    </div>
-
-    <div class="leaderboard-header">
-      <div>Rank</div>
-      <div>Tasker</div>
-      <div>Rate</div>
-      <div>Response</div>
-      <div>Rating</div>
-      <div>Status</div>
-      <div>Badges</div>
-    </div>
-
-    <div class="tasker" onclick="location.href='provider-mike.html'">
-      <div class="rank gold">1</div>
-      <div class="tasker-info">
-        <div class="tasker-name">Mike's Painting</div>
-        <div class="tasker-meta">156 jobs • 8 years experience</div>
-      </div>
-      <div class="rate">$45/hr</div>
-      <div class="response">1.2m</div>
-      <div class="rating"><span class="stars">★★★★★</span> 4.9</div>
-      <div class="status">
-        <span class="status-dot online"></span> Online
-      </div>
-      <div class="badges">
-        <span class="badge speed">⚡ SPEEDSTER</span>
-        <span class="badge pro">💎 PRO</span>
+    <div class="sort-section">
+      <div class="sort-label">Sort by:</div>
+      <div class="filters">
+        <button class="filter-btn active" data-sort="response">⚡ Response</button>
+        <button class="filter-btn" data-sort="reliability">✓ Reliability</button>
+        <button class="filter-btn" data-sort="price">$ Price</button>
       </div>
     </div>
 
-    <div class="tasker">
-      <div class="rank silver">2</div>
-      <div class="tasker-info">
-        <div class="tasker-name">Budget Brush Co.</div>
-        <div class="tasker-meta">89 jobs • 5 years experience</div>
+    <div class="ranking-hint">Providers ranked by response speed, reliability, and price.</div>
+
+    <div class="badge-legend">
+      <span title="Fast Responder">⚡ Fast</span>
+      <span title="Verified">✓ Verified</span>
+      <span title="Top Performer">🏆 Top</span>
+      <span title="Available Today">☀ Today</span>
+    </div>
+
+    <!-- Top 3 Section -->
+    <div class="top-3-section">
+      <div class="top-3-header">Top 3 by Response</div>
+      
+      <div class="tasker" onclick="location.href='provider-mike.html'">
+        <div class="rank gold">1</div>
+        <div class="tasker-info">
+          <div class="tasker-name">Mike's Repairs</div>
+          <div class="tasker-area">Downtown</div>
+        </div>
+        <div class="metric response">~2 min</div>
+        <div class="metric reliability">98%</div>
+        <div class="metric price">$55/hr</div>
+        <div class="badges">
+          <span class="badge-icon" data-tooltip="Fast Responder">⚡</span>
+          <span class="badge-icon" data-tooltip="Verified">✓</span>
+        </div>
+        <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
       </div>
-      <div class="rate">$32/hr</div>
-      <div class="response">3.5m</div>
-      <div class="rating"><span class="stars">★★★★☆</span> 4.3</div>
-      <div class="status">
-        <span class="status-dot online"></span> Online
+
+      <div class="tasker">
+        <div class="rank silver">2</div>
+        <div class="tasker-info">
+          <div class="tasker-name">QuickFix Pro</div>
+          <div class="tasker-area">Westside</div>
+        </div>
+        <div class="metric response">~4 min</div>
+        <div class="metric reliability">95%</div>
+        <div class="metric price">$48/hr</div>
+        <div class="badges">
+          <span class="badge-icon" data-tooltip="Top Performer">🏆</span>
+        </div>
+        <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
       </div>
-      <div class="badges">
-        <span class="badge cheap">💰 EL CHEAPO</span>
+
+      <div class="tasker">
+        <div class="rank bronze">3</div>
+        <div class="tasker-info">
+          <div class="tasker-name">Handyman Hank</div>
+          <div class="tasker-area">North Hills</div>
+        </div>
+        <div class="metric response">~6 min</div>
+        <div class="metric reliability">92%</div>
+        <div class="metric price">$45/hr</div>
+        <div class="badges">
+          <span class="badge-icon" data-tooltip="Available Today">☀</span>
+          <span class="badge-icon" data-tooltip="Verified">✓</span>
+        </div>
+        <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
       </div>
     </div>
 
-    <div class="tasker">
-      <div class="rank bronze">3</div>
-      <div class="tasker-info">
-        <div class="tasker-name">Elite Painters</div>
-        <div class="tasker-meta">234 jobs • 12 years experience</div>
+    <!-- Main Leaderboard -->
+    <div class="leaderboard-section">
+      <div class="leaderboard-section-header">Full Leaderboard</div>
+      
+      <div class="leaderboard-header">
+        <div>#</div>
+        <div>TaskLeader</div>
+        <div>Response</div>
+        <div>Reliability</div>
+        <div>Price</div>
+        <div></div>
+        <div></div>
       </div>
-      <div class="rate">$58/hr</div>
-      <div class="response">2.1m</div>
-      <div class="rating"><span class="stars">★★★★★</span> 4.9</div>
-      <div class="status">
-        <span class="status-dot busy"></span> Busy
-      </div>
-      <div class="badges">
-        <span class="badge pro">💎 PRO</span>
-      </div>
-    </div>
 
-    <div class="tasker">
-      <div class="rank">4</div>
-      <div class="tasker-info">
-        <div class="tasker-name">QuickCoat</div>
-        <div class="tasker-meta">45 jobs • 3 years experience</div>
+      <div class="tasker">
+        <div class="rank">4</div>
+        <div class="tasker-info">
+          <div class="tasker-name">FixIt Fast</div>
+          <div class="tasker-area">Eastside</div>
+        </div>
+        <div class="metric response">~8 min</div>
+        <div class="metric reliability">89%</div>
+        <div class="metric price">$42/hr</div>
+        <div class="badges">
+          <span class="badge-icon" data-tooltip="Fast Responder">⚡</span>
+        </div>
+        <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
       </div>
-      <div class="rate">$38/hr</div>
-      <div class="response">4.2m</div>
-      <div class="rating"><span class="stars">★★★★☆</span> 4.6</div>
-      <div class="status">
-        <span class="status-dot online"></span> Online
-      </div>
-      <div class="badges">
-        <span class="badge new">🌱 NEW</span>
-      </div>
-    </div>
 
-    <div class="tasker">
-      <div class="rank">5</div>
-      <div class="tasker-info">
-        <div class="tasker-name">Sarah's Brushwork</div>
-        <div class="tasker-meta">67 jobs • 4 years experience</div>
+      <div class="tasker">
+        <div class="rank">5</div>
+        <div class="tasker-info">
+          <div class="tasker-name">All-Round Repairs</div>
+          <div class="tasker-area">South Bay</div>
+        </div>
+        <div class="metric response">~12 min</div>
+        <div class="metric reliability">94%</div>
+        <div class="metric price">$50/hr</div>
+        <div class="badges">
+          <span class="badge-icon" data-tooltip="Verified">✓</span>
+        </div>
+        <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
       </div>
-      <div class="rate">$42/hr</div>
-      <div class="response">5.8m</div>
-      <div class="rating"><span class="stars">★★★★★</span> 4.8</div>
-      <div class="status">
-        <span class="status-dot online"></span> Online
-      </div>
-      <div class="badges"></div>
-    </div>
 
-    <div class="pagination">
-      <button class="page-btn active">1</button>
-      <button class="page-btn">2</button>
-      <button class="page-btn">3</button>
-      <span style="opacity:0.5;padding:10px;">...</span>
-      <button class="page-btn">63</button>
-      <button class="page-btn">→</button>
+      <div class="tasker">
+        <div class="rank">6</div>
+        <div class="tasker-info">
+          <div class="tasker-name">Home Helper Joe</div>
+          <div class="tasker-area">Midtown</div>
+        </div>
+        <div class="metric response">~15 min</div>
+        <div class="metric reliability">87%</div>
+        <div class="metric price">$40/hr</div>
+        <div class="badges">
+          <span class="badge-icon" data-tooltip="Available Today">☀</span>
+        </div>
+        <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
+      </div>
+
+      <div class="tasker">
+        <div class="rank">7</div>
+        <div class="tasker-info">
+          <div class="tasker-name">Elite Handyman</div>
+          <div class="tasker-area">Downtown</div>
+        </div>
+        <div class="metric response">~18 min</div>
+        <div class="metric reliability">96%</div>
+        <div class="metric price">$65/hr</div>
+        <div class="badges">
+          <span class="badge-icon" data-tooltip="Top Performer">🏆</span>
+          <span class="badge-icon" data-tooltip="Verified">✓</span>
+        </div>
+        <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
+      </div>
+
+      <div class="tasker">
+        <div class="rank">8</div>
+        <div class="tasker-info">
+          <div class="tasker-name">Budget Repairs</div>
+          <div class="tasker-area">Westside</div>
+        </div>
+        <div class="metric response">~22 min</div>
+        <div class="metric reliability">85%</div>
+        <div class="metric price">$35/hr</div>
+        <div class="badges"></div>
+        <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
+      </div>
     </div>
   </main>
+
+  <script>
+    // Simple sort toggle for demo
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const sort = this.dataset.sort;
+        document.querySelector('.top-3-header').textContent = 'Top 3 by ' + sort.charAt(0).toUpperCase() + sort.slice(1);
+      });
+    });
+  </script>
 </body>
 </html>
