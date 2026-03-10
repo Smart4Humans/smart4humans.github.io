@@ -48,7 +48,7 @@
       margin-left: 12px;
     }
     main {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 24px;
     }
@@ -84,29 +84,39 @@
     .ranking-hint {
       font-size: 12px;
       opacity: 0.5;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     .badge-legend {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
       font-size: 11px;
-      opacity: 0.5;
-      margin-bottom: 16px;
-      padding: 8px 12px;
-      background: rgba(255,255,255,0.03);
+      opacity: 0.6;
+      margin-bottom: 20px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.04);
       border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
     }
     .badge-legend span {
       display: flex;
       align-items: center;
       gap: 4px;
+      cursor: help;
+    }
+    .section-heading {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(0,212,255,0.3);
+      display: inline-block;
     }
     .leaderboard-header {
       display: grid;
-      grid-template-columns: 36px minmax(140px, 1fr) 70px 70px 70px 44px 80px;
-      gap: 8px;
-      padding: 10px 12px;
+      grid-template-columns: 32px minmax(120px, 1fr) 60px 70px 52px 56px 36px;
+      gap: 6px;
+      padding: 10px 10px;
       font-size: 10px;
       opacity: 0.5;
       text-transform: uppercase;
@@ -115,34 +125,50 @@
     }
     .tasker {
       display: grid;
-      grid-template-columns: 36px minmax(140px, 1fr) 70px 70px 70px 44px 80px;
-      gap: 8px;
+      grid-template-columns: 32px minmax(120px, 1fr) 60px 70px 52px 56px 36px;
+      gap: 6px;
       align-items: center;
-      padding: 12px;
+      padding: 10px;
       background: var(--card);
-      border-radius: 10px;
+      border-radius: 8px;
       border: 1px solid rgba(255,255,255,0.08);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       transition: all 0.2s;
       cursor: pointer;
     }
     .tasker:hover {
       border-color: var(--cyan);
-      transform: translateX(3px);
+      transform: translateX(2px);
     }
     .rank {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       text-align: center;
     }
     .rank.gold { color: var(--gold); text-shadow: 0 0 8px rgba(255,215,0,0.3); }
     .rank.silver { color: var(--silver); }
     .rank.bronze { color: var(--bronze); }
-    .tasker-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .tasker-name { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .tasker-area { font-size: 11px; opacity: 0.5; }
+    .tasker-info { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 1px; 
+      min-width: 0;
+      overflow: hidden;
+    }
+    .tasker-name { 
+      font-size: 13px; 
+      font-weight: 600; 
+      white-space: nowrap; 
+      overflow: hidden; 
+      text-overflow: ellipsis; 
+    }
+    .tasker-area { 
+      font-size: 10px; 
+      opacity: 0.5;
+      white-space: nowrap;
+    }
     .metric {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       font-variant-numeric: tabular-nums;
     }
@@ -151,18 +177,24 @@
     .metric.price { color: #fbbf24; }
     .badges {
       display: flex;
-      gap: 4px;
+      gap: 3px;
       justify-content: flex-end;
+      align-items: center;
     }
     .badge-icon {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       cursor: help;
       position: relative;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.08);
+    }
+    .badge-icon:hover {
+      background: rgba(255,255,255,0.15);
     }
     .badge-icon:hover::after {
       content: attr(data-tooltip);
@@ -183,44 +215,34 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       background: var(--whatsapp);
-      border-radius: 8px;
+      border-radius: 6px;
       color: #fff;
-      font-size: 16px;
+      font-size: 13px;
       text-decoration: none;
       transition: transform 0.15s;
+      margin-left: 2px;
     }
     .whatsapp-btn:hover {
       transform: scale(1.05);
     }
-    .top-3-section {
-      margin-bottom: 24px;
+    .top-section {
+      margin-bottom: 28px;
     }
-    .top-3-header {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      opacity: 0.8;
-    }
-    .leaderboard-section {
+    .more-section {
       margin-top: 24px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .leaderboard-section-header {
-      font-size: 12px;
-      opacity: 0.5;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
     @media (max-width: 768px) {
       main { padding: 16px; }
+      .section-heading { font-size: 16px; }
       .leaderboard-header {
-        grid-template-columns: 32px 1fr 60px 44px;
-        gap: 6px;
+        grid-template-columns: 28px 1fr 50px 36px;
+        gap: 4px;
+        padding: 8px 6px;
       }
       .leaderboard-header > div:nth-child(4),
       .leaderboard-header > div:nth-child(5),
@@ -228,9 +250,9 @@
         display: none;
       }
       .tasker {
-        grid-template-columns: 32px 1fr 60px 44px;
-        gap: 6px;
-        padding: 10px;
+        grid-template-columns: 28px 1fr 50px 36px;
+        gap: 4px;
+        padding: 8px 6px;
       }
       .tasker > .metric:nth-child(4),
       .tasker > .metric:nth-child(5),
@@ -238,8 +260,14 @@
         display: none;
       }
       .badge-legend {
-        gap: 10px;
+        gap: 8px;
         font-size: 10px;
+        padding: 8px 10px;
+      }
+      .whatsapp-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
       }
     }
     @media (max-width: 480px) {
@@ -247,6 +275,7 @@
       .tasker-count { display: block; margin-left: 0; margin-top: 4px; }
       .filters { gap: 6px; }
       .filter-btn { padding: 6px 12px; font-size: 11px; }
+      .badge-legend span { font-size: 9px; }
     }
   </style>
 </head>
@@ -273,28 +302,30 @@
     <div class="ranking-hint">Providers ranked by response speed, reliability, and price.</div>
 
     <div class="badge-legend">
-      <span title="Fast Responder">⚡ Fast</span>
-      <span title="Verified">✓ Verified</span>
-      <span title="Top Performer">🏆 Top</span>
-      <span title="Available Today">☀ Today</span>
+      <span title="Responds in under 5 minutes">⚡ Fast</span>
+      <span title="Identity & background verified">✓ Verified</span>
+      <span title="Top 10% performance score">🏆 Top</span>
+      <span title="Available for bookings today">☀ Today</span>
+      <span title="Available evenings & weekends">🌙 After Hours</span>
     </div>
 
     <!-- Top 3 Section -->
-    <div class="top-3-section">
-      <div class="top-3-header">Top 3 by Response</div>
+    <div class="top-section">
+      <div class="section-heading">Top 3 by Response</div>
       
       <div class="tasker" onclick="location.href='provider-mike.html'">
         <div class="rank gold">1</div>
         <div class="tasker-info">
           <div class="tasker-name">Mike's Repairs</div>
-          <div class="tasker-area">Downtown</div>
+          <div class="tasker-area">East Van</div>
         </div>
-        <div class="metric response">~2 min</div>
+        <div class="metric response">~2m</div>
         <div class="metric reliability">98%</div>
-        <div class="metric price">$55/hr</div>
+        <div class="metric price">$55</div>
         <div class="badges">
           <span class="badge-icon" data-tooltip="Fast Responder">⚡</span>
           <span class="badge-icon" data-tooltip="Verified">✓</span>
+          <span class="badge-icon" data-tooltip="Top Performer">🏆</span>
         </div>
         <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
       </div>
@@ -303,13 +334,14 @@
         <div class="rank silver">2</div>
         <div class="tasker-info">
           <div class="tasker-name">QuickFix Pro</div>
-          <div class="tasker-area">Westside</div>
+          <div class="tasker-area">Burnaby</div>
         </div>
-        <div class="metric response">~4 min</div>
+        <div class="metric response">~4m</div>
         <div class="metric reliability">95%</div>
-        <div class="metric price">$48/hr</div>
+        <div class="metric price">$48</div>
         <div class="badges">
-          <span class="badge-icon" data-tooltip="Top Performer">🏆</span>
+          <span class="badge-icon" data-tooltip="Fast Responder">⚡</span>
+          <span class="badge-icon" data-tooltip="Verified">✓</span>
         </div>
         <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
       </div>
@@ -318,11 +350,11 @@
         <div class="rank bronze">3</div>
         <div class="tasker-info">
           <div class="tasker-name">Handyman Hank</div>
-          <div class="tasker-area">North Hills</div>
+          <div class="tasker-area">Richmond</div>
         </div>
-        <div class="metric response">~6 min</div>
+        <div class="metric response">~6m</div>
         <div class="metric reliability">92%</div>
-        <div class="metric price">$45/hr</div>
+        <div class="metric price">$45</div>
         <div class="badges">
           <span class="badge-icon" data-tooltip="Available Today">☀</span>
           <span class="badge-icon" data-tooltip="Verified">✓</span>
@@ -331,15 +363,15 @@
       </div>
     </div>
 
-    <!-- Main Leaderboard -->
-    <div class="leaderboard-section">
-      <div class="leaderboard-section-header">Full Leaderboard</div>
+    <!-- More TaskLeaders Section -->
+    <div class="more-section">
+      <div class="section-heading">More TaskLeaders</div>
       
       <div class="leaderboard-header">
         <div>#</div>
         <div>TaskLeader</div>
         <div>Response</div>
-        <div>Reliability</div>
+        <div>Reliab.</div>
         <div>Price</div>
         <div></div>
         <div></div>
@@ -349,11 +381,11 @@
         <div class="rank">4</div>
         <div class="tasker-info">
           <div class="tasker-name">FixIt Fast</div>
-          <div class="tasker-area">Eastside</div>
+          <div class="tasker-area">New West</div>
         </div>
-        <div class="metric response">~8 min</div>
+        <div class="metric response">~8m</div>
         <div class="metric reliability">89%</div>
-        <div class="metric price">$42/hr</div>
+        <div class="metric price">$42</div>
         <div class="badges">
           <span class="badge-icon" data-tooltip="Fast Responder">⚡</span>
         </div>
@@ -364,13 +396,14 @@
         <div class="rank">5</div>
         <div class="tasker-info">
           <div class="tasker-name">All-Round Repairs</div>
-          <div class="tasker-area">South Bay</div>
+          <div class="tasker-area">Coquitlam</div>
         </div>
-        <div class="metric response">~12 min</div>
+        <div class="metric response">~12m</div>
         <div class="metric reliability">94%</div>
-        <div class="metric price">$50/hr</div>
+        <div class="metric price">$50</div>
         <div class="badges">
           <span class="badge-icon" data-tooltip="Verified">✓</span>
+          <span class="badge-icon" data-tooltip="After Hours">🌙</span>
         </div>
         <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
       </div>
@@ -379,11 +412,11 @@
         <div class="rank">6</div>
         <div class="tasker-info">
           <div class="tasker-name">Home Helper Joe</div>
-          <div class="tasker-area">Midtown</div>
+          <div class="tasker-area">Surrey</div>
         </div>
-        <div class="metric response">~15 min</div>
+        <div class="metric response">~15m</div>
         <div class="metric reliability">87%</div>
-        <div class="metric price">$40/hr</div>
+        <div class="metric price">$40</div>
         <div class="badges">
           <span class="badge-icon" data-tooltip="Available Today">☀</span>
         </div>
@@ -394,14 +427,15 @@
         <div class="rank">7</div>
         <div class="tasker-info">
           <div class="tasker-name">Elite Handyman</div>
-          <div class="tasker-area">Downtown</div>
+          <div class="tasker-area">Tri-Cities</div>
         </div>
-        <div class="metric response">~18 min</div>
+        <div class="metric response">~18m</div>
         <div class="metric reliability">96%</div>
-        <div class="metric price">$65/hr</div>
+        <div class="metric price">$65</div>
         <div class="badges">
           <span class="badge-icon" data-tooltip="Top Performer">🏆</span>
           <span class="badge-icon" data-tooltip="Verified">✓</span>
+          <span class="badge-icon" data-tooltip="After Hours">🌙</span>
         </div>
         <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
       </div>
@@ -410,25 +444,57 @@
         <div class="rank">8</div>
         <div class="tasker-info">
           <div class="tasker-name">Budget Repairs</div>
-          <div class="tasker-area">Westside</div>
+          <div class="tasker-area">East Van</div>
         </div>
-        <div class="metric response">~22 min</div>
+        <div class="metric response">~22m</div>
         <div class="metric reliability">85%</div>
-        <div class="metric price">$35/hr</div>
+        <div class="metric price">$35</div>
         <div class="badges"></div>
+        <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
+      </div>
+
+      <div class="tasker">
+        <div class="rank">9</div>
+        <div class="tasker-info">
+          <div class="tasker-name">ProFix Solutions</div>
+          <div class="tasker-area">Burnaby</div>
+        </div>
+        <div class="metric response">~25m</div>
+        <div class="metric reliability">91%</div>
+        <div class="metric price">$52</div>
+        <div class="badges">
+          <span class="badge-icon" data-tooltip="Verified">✓</span>
+        </div>
+        <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
+      </div>
+
+      <div class="tasker">
+        <div class="rank">10</div>
+        <div class="tasker-info">
+          <div class="tasker-name">Handy Andy</div>
+          <div class="tasker-area">Richmond</div>
+        </div>
+        <div class="metric response">~28m</div>
+        <div class="metric reliability">88%</div>
+        <div class="metric price">$46</div>
+        <div class="badges">
+          <span class="badge-icon" data-tooltip="Available Today">☀</span>
+          <span class="badge-icon" data-tooltip="Fast Responder">⚡</span>
+        </div>
         <a href="#" class="whatsapp-btn" title="Contact on WhatsApp">💬</a>
       </div>
     </div>
   </main>
 
   <script>
-    // Simple sort toggle for demo
+    // Sort toggle updates heading
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', function() {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
         const sort = this.dataset.sort;
-        document.querySelector('.top-3-header').textContent = 'Top 3 by ' + sort.charAt(0).toUpperCase() + sort.slice(1);
+        const sortLabel = sort === 'response' ? 'Response' : sort === 'reliability' ? 'Reliability' : 'Price';
+        document.querySelector('.top-section .section-heading').textContent = 'Top 3 by ' + sortLabel;
       });
     });
   </script>
